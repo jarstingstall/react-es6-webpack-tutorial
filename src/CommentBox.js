@@ -40,7 +40,7 @@ export class CommentBox extends React.Component {
 
   componentDidMount() {
     this.loadComments();
-    // setInterval(this.loadComments.bind(this), this.props.pollInterval);
+    setInterval(this.loadComments.bind(this), this.props.pollInterval);
   }
 
   render() {
