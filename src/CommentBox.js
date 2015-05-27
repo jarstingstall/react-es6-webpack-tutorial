@@ -9,7 +9,7 @@ export class CommentBox extends React.Component {
     this.state = {data: []};
   }
 
-  componentDidMount() {
+  loadComments() {
     $.ajax({
       url: this.props.url,
       dataType: 'json',
@@ -23,12 +23,32 @@ export class CommentBox extends React.Component {
     });
   }
 
+  handleCommentSubmit(comment) {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      type: 'POST',
+      data: comment,
+      success: data => {
+        this.setState({data: data});
+      },
+      error: (xhr, status, err)  => {
+        console.error(this.props.url, status, err.toString());
+      }
+    });
+  }
+
+  componentDidMount() {
+    this.loadComments();
+    // setInterval(this.loadComments.bind(this), this.props.pollInterval);
+  }
+
   render() {
     return (
       <div className="commentBox">
         <h1>Comments</h1>
         <CommentList data={this.state.data}/>
-        <CommentForm />
+        <CommentForm onCommentSubmit={this.handleCommentSubmit.bind(this)}/>
       </div>
     );
   }
