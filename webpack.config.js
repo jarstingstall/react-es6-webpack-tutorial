@@ -9,8 +9,5 @@ module.exports = {
             {test: /\.jsx?$/, loader: 'babel', exclude: /node_modules/},
             {test: /\.css$/, loader: 'style!css', exclude: /node_modules/}
         ]
-    },
-    devServer: {
-        contentBase: './public/'
     }
 }
